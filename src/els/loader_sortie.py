@@ -10,7 +10,7 @@ Savoie = 14295    page 139 4170
 Attention l'API ne permet pas de récupérer plus de 10000 lignes même si le résultat en a plus.
 
 Created on Aug 25 2017
-@author: MDVan-Damme
+@author: Marie-Dominique Van Damme
 """
 
 from pyproj import Proj, transform
@@ -33,24 +33,20 @@ urllib.request.install_opener(opener)
 inProj = Proj(init='epsg:3857')
 outProj = Proj(init='epsg:4326')
 
-url = 'https://api.camptocamp.org/outings?limit=30&a=14295'
+url = 'https://api.camptocamp.org/outings?limit=5&a=14295'
 response = urllib.request.urlopen(url)
 data = json.load(response)
 total = data['total']
 
+# Ici on bloque à 10000 résultats, l'API ne permet pas plus.
 #nbiter = int(total / 30) + 1  
 nbiter = 333
-#nbiter = 664 
 offset = 0
-#offset = 9960
-debut = 0
-#debut = 333
-for j in range (debut, nbiter):
+for j in range (nbiter):
     print ("---------- page " + str(j) + " ( " + str(offset) + " ) ")
     
     url = 'https://api.camptocamp.org/outings?a=14295&offset=' + str(offset) + '&limit=30'
     responseListe = urllib.request.urlopen(url)
-    #print response.url
     dataListe = json.load(responseListe)
     
     for d in range(len(dataListe['documents'])):
@@ -125,8 +121,8 @@ for j in range (debut, nbiter):
         f["location"]["coords"] = dict()
         f["location"]["coords"]["lat"] = y2
         f["location"]["coords"]["lon"] = x2
+        
         data = json.dumps(f)
-
         conn.index(data, esindex, estype, docid)
 
     offset = offset + 30
