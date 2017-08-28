@@ -28,3 +28,8 @@ L'équation de changement de repère pour un point (x1,y1) s'écrit :
 
 On donne ci-dessous le code Java permettant de résoudre ce problème :
 
+
+.. math::
+
+    d(t) = (p1*t) / (p2*t+1) 
+
