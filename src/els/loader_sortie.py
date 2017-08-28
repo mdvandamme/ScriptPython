@@ -24,8 +24,8 @@ estype = "sortie"
 conn = pyes.ES(esurl, timeout=60, bulk_size=10)
 
 proxy = urllib.request.ProxyHandler({
-#    'http': 'proxy.ign.fr:3128',
-#    'https': 'proxy.ign.fr:3128'
+    'http': 'proxy.ign.fr:3128',
+    'https': 'proxy.ign.fr:3128'
 })
 opener = urllib.request.build_opener(proxy)
 urllib.request.install_opener(opener)
@@ -62,12 +62,13 @@ for j in range (nbiter):
         datestart = dataListe['documents'][d]['date_start']
         if datestart == None:
             datestart = ""
-        dateend = dataListe['documents'][d]['date_end']
-        if dateend == None:
-            dateend = ""
+        #dateend = dataListe['documents'][d]['date_end']
+        #if dateend == None:
+        #    dateend = ""
         
         # TODO : tableau
         activite = dataListe['documents'][d]['activities']
+        #print (activite)
         
         
         geom = json.loads(feature['geometry']['geom']) # Récupère la géométrie
@@ -108,7 +109,7 @@ for j in range (nbiter):
         f["docid"] = docid
         f["title"] = title
         f["date_start"] = datestart
-        f["date_end"] = dateend
+        #f["date_end"] = dateend
         f["condition_rating"] = condrating
         f["quality"] = quality
         f["description"] = description
@@ -116,6 +117,7 @@ for j in range (nbiter):
         f["access_comment"] = access_comment
         f["timing"] = timing
         f["participant_count"] = participant_count
+        f["activite"] = activite
         
         f["location"] = dict()
         f["location"]["coords"] = dict()
