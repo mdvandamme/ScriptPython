@@ -62,14 +62,8 @@ for j in range (nbiter):
         datestart = dataListe['documents'][d]['date_start']
         if datestart == None:
             datestart = ""
-        #dateend = dataListe['documents'][d]['date_end']
-        #if dateend == None:
-        #    dateend = ""
-        
-        # TODO : tableau
         activite = dataListe['documents'][d]['activities']
         #print (activite)
-        
         
         geom = json.loads(feature['geometry']['geom']) # Récupère la géométrie
         lon = geom["coordinates"][0]
@@ -109,7 +103,6 @@ for j in range (nbiter):
         f["docid"] = docid
         f["title"] = title
         f["date_start"] = datestart
-        #f["date_end"] = dateend
         f["condition_rating"] = condrating
         f["quality"] = quality
         f["description"] = description
