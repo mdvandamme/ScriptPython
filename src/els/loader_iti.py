@@ -54,9 +54,10 @@ for j in range (nbiter):
         #feature = dataListe['documents'][d]
         
         docid = dataListe['documents'][d]['document_id']
+        
         activite = dataListe['documents'][d]['activities']
         
-        if activite[0] != "slacklining":
+        if activite[0] != "slacklining" and docid != 913948:
         
             urlId = 'https://api.camptocamp.org/routes/' + str(docid)
             responseId = urllib.request.urlopen(urlId)
@@ -136,16 +137,20 @@ for j in range (nbiter):
                     loc["type"] = "LineString"
                     
                     tabcoordI = coords['coordinates']
-                    tabcoordF = []
-                    for i in range(len(tabcoordI)):
-                        point = tabcoordI[i]
-                        lon = point[0]
-                        lat = point[1]
-                        x2,y2 = transform(inProj, outProj, lon, lat)
-                        tabcoordF.append([x2, y2])
-                    
-                    loc["coordinates"] = tabcoordF
-                    f["location"] = loc
+                    if len(tabcoordI) < 100:
+                        print (str(docid) + "-" + str(len(tabcoordI)))
+                        tabcoordF = []
+                        for i in range(len(tabcoordI)):
+                            point = tabcoordI[i]
+                            lon = point[0]
+                            lat = point[1]
+                            x2,y2 = transform(inProj, outProj, lon, lat)
+                            tabcoordF.append([x2, y2])
+                        
+                        loc["coordinates"] = tabcoordF
+                        f["location"] = loc
+                    else:
+                        print ("trop de vertex : " + str(len(tabcoordI)))
 	
             # Ways
             if "associations" in feature:
