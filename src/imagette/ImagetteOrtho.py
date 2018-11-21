@@ -28,9 +28,9 @@ Created on September 2018
 import sys
 sys.path.append('.')
 
-cle = ''
-login = 'projING2'
-passwd = 'projING2_2018'
+cle = 'pratique'
+login = ''
+passwd = ''
 
 
 import Capabilities as metadata
